@@ -38,7 +38,7 @@ class PlayerViewController: UIViewController {
     }
     @IBOutlet private weak var volumeSeekBar: UISlider!
     //再生ボタン
-    @IBOutlet private weak var playButton: PlayButton!
+    @IBOutlet private weak var playButton: AnimationButton!
     //プレイヤー
     private var audioPlayer: AVAudioPlayer!
     private var sliderDuration: Float = 0.0
@@ -55,25 +55,28 @@ class PlayerViewController: UIViewController {
             }
         }
     }
-    //音楽が入ってる配列
-    private let songs = SongController().getSongs()
+    //音楽をコントロールするクラス
+    let dj = DJ.sheredInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //一曲目をロード
-        loadSong(song: songs[0])
+        loadSong(song: dj.next())
         //現在の状態を保持
         playerState = .play
     }
     
     @objc func setTimerLabel() {
         playbackSeekBar.value = playbackSeekBar.value + sliderDuration
-        currentTimeLabel.text = audioPlayer.currentTime.description
         let limitTime = round(audioPlayer.duration) - audioPlayer.currentTime
-        limitTimeLabel.text = "-\(limitTime)"
+        currentTimeLabel.text = formatTimeString(time: audioPlayer.currentTime)
+        limitTimeLabel.text = "-\(formatTimeString(time: limitTime))"
     }
     
     @IBAction func slidePlayBackFinished(_ sender: UISlider) {
+        if !timer.isValid && playerState == .pause {
+            self.timer = Timer.scheduledTimer(timeInterval: 1 / fps, target: self, selector: #selector(setTimerLabel), userInfo: nil, repeats: true)
+        }
         if audioPlayer.isPlaying && sender.value == 1 {
             audioPlayer.currentTime = audioPlayer.duration - 1
             return
@@ -81,8 +84,14 @@ class PlayerViewController: UIViewController {
         audioPlayer.currentTime = Double(sender.value) * audioPlayer.duration
     }
     
-    @IBAction func slidePlayBack(_ sender: Any) {
-        print("aaa")
+    @IBAction func slidePlayBack(_ sender: UISlider) {
+        // sender.value : 1 = currentX : duration
+        // sender.value * duration = currentX * 1
+        timer.invalidate()
+        let current = Double(sender.value) * audioPlayer.duration
+        let limit = audioPlayer.duration - current
+        currentTimeLabel.text = formatTimeString(time: current)
+        limitTimeLabel.text = "-\(formatTimeString(time: limit))"
     }
     
     
@@ -91,11 +100,10 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func tapBackward(_ sender: Any) {
-        loadSong(song: songs[0])
+        loadSong(song: dj.back())
     }
     
-    @IBAction func tapPlay(_ sender: PlayButton) {
-        print(playerState)
+    @IBAction func tapPlay(_ sender: AnimationButton) {
         if let audioPlayer = audioPlayer {
             if audioPlayer.isPlaying {
                 playerState = .play
@@ -106,13 +114,41 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func tapForward(_ sender: Any) {
-        switch playerState {
-        case .play:
-            loadSong(song: songs[1])
-        case .pause:
-            playbackSeekBar.value = 1
-            audioPlayer.currentTime = audioPlayer.duration - 1
+        loadSong(song: dj.next())
+    }
+    
+    @IBAction func tapSkip15Sec(_ sender: Any) {
+        let duration = audioPlayer.duration - audioPlayer.currentTime
+        if duration <= 15 {
+            loadSong(song: dj.next())
+            return
         }
+        audioPlayer.currentTime += 15
+        playbackSeekBar.value = Float(audioPlayer.currentTime / audioPlayer.duration)
+        setTimerLabel()
+    }
+    
+    @IBAction func tapPlayMode(_ sender: UIButton) {
+        switch dj.playMode {
+        case .normal:
+            dj.playMode = .shuffle
+            sender.setBackgroundImage(UIImage(systemName: "shuffle"), for: .normal)
+            sender.tintColor = .systemPink
+        case .shuffle:
+            dj.playMode = .cycle
+            sender.setBackgroundImage(UIImage(systemName: "repeat"), for: .normal)
+            sender.tintColor = .systemPink
+        case .cycle:
+            dj.playMode = .normal
+            sender.setBackgroundImage(UIImage(systemName: "increase.quotelevel"), for: .normal)
+            sender.tintColor = .secondaryLabel
+        }
+    }
+    
+    @IBAction func tapBack15Sec(_ sender: Any) {
+        audioPlayer.currentTime -= 15
+        playbackSeekBar.value = Float(audioPlayer.currentTime / audioPlayer.duration)
+        setTimerLabel()
     }
     
 }
@@ -120,7 +156,7 @@ class PlayerViewController: UIViewController {
 extension PlayerViewController: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        loadSong(song: songs[1])
+        loadSong(song: dj.finishSong())
     }
     
 }
@@ -157,18 +193,31 @@ extension PlayerViewController {
     }
     
     private func play() {
-        playButton.playState = .play
+        playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
         animScaleChange(view: jacketImageView, duration: 0.7, scale: 0.8)
         audioPlayer.pause()
         timer.invalidate()
     }
     
     private func pause() {
-        playButton.playState = .pause
+        playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
         animScaleChange(view: jacketImageView, duration: 0.7, scale: 1.0)
         audioPlayer.play()
         if !timer.isValid {
             self.timer = Timer.scheduledTimer(timeInterval: 1 / fps, target: self, selector: #selector(setTimerLabel), userInfo: nil, repeats: true)
+        }
+    }
+    
+    private func formatTimeString(time: Double) -> String {
+        let second: Int = Int(time) % 60
+        let minuts: Int = Int((time - Double(second))) / 60 % 60
+        let hour: Int = Int(time - Double(minuts) - Double(second)) / 3600 % 3600
+        if hour == 0 {
+            let timeStr = String(format: "%02d:%02d", minuts, second)
+            return timeStr
+        } else {
+            let timeStr = String(format: "%02d:%02d:%02d", hour, minuts, second)
+            return timeStr
         }
     }
     

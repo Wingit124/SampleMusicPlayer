@@ -36,4 +36,6 @@ class SongController {
 let songData = """
 サンプル音源1,不明,sound01,image01
 サンプル音源2,不明,sound02,image02
+戦いの跡,魔王塊,tatakaino_ato,senjo
+神々の試練,魔王塊,kamigamino_shiren,kamigami
 """

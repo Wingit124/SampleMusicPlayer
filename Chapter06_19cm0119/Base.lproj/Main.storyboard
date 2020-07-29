@@ -48,7 +48,7 @@
                                             <action selector="tapBackward:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ljO-zm-b8U"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oC-jI-qK4" customClass="PlayButton" customModule="Chapter06_19cm0119" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oC-jI-qK4" customClass="AnimationButton" customModule="Chapter06_19cm0119" customModuleProvider="target">
                                         <rect key="frame" x="121" y="1.5" width="48" height="44.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -126,10 +126,53 @@
                                     <constraint firstAttribute="height" constant="15" id="Pco-Pw-Klm"/>
                                 </constraints>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="xUm-lV-aBz">
+                                <rect key="frame" x="107" y="828.5" width="200" height="33.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="655-jk-Gf4" customClass="AnimationButton" customModule="Chapter06_19cm0119" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="-1.5" width="33.5" height="34.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="655-jk-Gf4" secondAttribute="height" multiplier="1:1" id="BLE-3u-6g0"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <state key="normal" backgroundImage="gobackward.15" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapBack15Sec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SJU-Gw-D0W"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="74F-kM-a98" customClass="AnimationButton" customModule="Chapter06_19cm0119" customModuleProvider="target">
+                                        <rect key="frame" x="83.5" y="1.5" width="33" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="74F-kM-a98" secondAttribute="height" multiplier="1:1" id="DDM-NH-6RW"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" backgroundImage="increase.quotelevel" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapPlayMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YGZ-tq-uo3"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNj-zc-Ceq" customClass="AnimationButton" customModule="Chapter06_19cm0119" customModuleProvider="target">
+                                        <rect key="frame" x="166.5" y="-1.5" width="33.5" height="34.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="JNj-zc-Ceq" secondAttribute="height" multiplier="1:1" id="Wus-RI-xSF"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <state key="normal" backgroundImage="goforward.15" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapSkip15Sec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eDr-Ps-sjk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="xUm-lV-aBz" secondAttribute="height" multiplier="6:1" id="Y9m-iO-Wpv"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="TCw-9u-gFN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="22x-RL-DPy"/>
+                            <constraint firstItem="xUm-lV-aBz" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.483092" id="4ps-Hd-mJ0"/>
                             <constraint firstItem="Hp4-g4-foN" firstAttribute="top" secondItem="TCw-9u-gFN" secondAttribute="bottom" constant="-10" id="5yn-2V-0RJ"/>
                             <constraint firstItem="hKF-3R-jQ7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6Wv-8G-EQU"/>
                             <constraint firstItem="HX7-3x-GIq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BEX-Hp-Qdb"/>
@@ -148,6 +191,7 @@
                             <constraint firstItem="6wE-cV-xWJ" firstAttribute="trailing" secondItem="TCw-9u-gFN" secondAttribute="trailing" id="j8d-Zq-aa9"/>
                             <constraint firstItem="HX7-3x-GIq" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.85" id="jD6-25-1JP"/>
                             <constraint firstItem="rT9-vm-LbU" firstAttribute="centerY" secondItem="OnO-OL-ryl" secondAttribute="centerY" id="jfy-YN-eFe"/>
+                            <constraint firstItem="xUm-lV-aBz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="kgZ-Q3-sYC"/>
                             <constraint firstItem="mrI-N9-SJ8" firstAttribute="leading" secondItem="OnO-OL-ryl" secondAttribute="trailing" constant="5" id="l0X-PS-jzq"/>
                             <constraint firstItem="6wE-cV-xWJ" firstAttribute="top" secondItem="TCw-9u-gFN" secondAttribute="bottom" constant="-10" id="mF2-jJ-afa"/>
                             <constraint firstItem="mrI-N9-SJ8" firstAttribute="centerY" secondItem="OnO-OL-ryl" secondAttribute="centerY" id="mHz-Xm-yF9"/>
@@ -158,6 +202,7 @@
                             <constraint firstItem="HX7-3x-GIq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.5" priority="750" id="x1M-NV-E44"/>
                             <constraint firstItem="mrI-N9-SJ8" firstAttribute="trailing" secondItem="TCw-9u-gFN" secondAttribute="trailing" id="yd4-yX-UiP"/>
                             <constraint firstItem="niz-b3-YhY" firstAttribute="top" secondItem="BmW-A7-SA4" secondAttribute="bottom" id="zAC-Wp-9LO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xUm-lV-aBz" secondAttribute="bottom" id="zsN-YE-T3M"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -174,12 +219,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
     <resources>
         <image name="backward.fill" catalog="system" width="128" height="79"/>
         <image name="forward.fill" catalog="system" width="128" height="79"/>
+        <image name="gobackward.15" catalog="system" width="121" height="128"/>
+        <image name="goforward.15" catalog="system" width="121" height="128"/>
+        <image name="increase.quotelevel" catalog="system" width="128" height="104"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="speaker.3.fill" catalog="system" width="128" height="90"/>

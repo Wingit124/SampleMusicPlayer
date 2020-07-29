@@ -17,8 +17,8 @@
 		A57C4FFC24C7DFC100D8F56E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A57C4FFA24C7DFC100D8F56E /* LaunchScreen.storyboard */; };
 		A57C500724C7DFC100D8F56E /* Chapter06_19cm0119Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C500624C7DFC100D8F56E /* Chapter06_19cm0119Tests.swift */; };
 		A57C501224C7DFC100D8F56E /* Chapter06_19cm0119UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C501124C7DFC100D8F56E /* Chapter06_19cm0119UITests.swift */; };
-		A57C502324C7F7BB00D8F56E /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C502224C7F7BB00D8F56E /* PlayButton.swift */; };
 		A581CC5224C814D2006C4C8F /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = A581CC5124C814D2006C4C8F /* Song.swift */; };
+		A5D86AC624D100A700C85CAD /* DJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D86AC524D100A700C85CAD /* DJ.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +55,8 @@
 		A57C500D24C7DFC100D8F56E /* Chapter06_19cm0119UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Chapter06_19cm0119UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57C501124C7DFC100D8F56E /* Chapter06_19cm0119UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter06_19cm0119UITests.swift; sourceTree = "<group>"; };
 		A57C501324C7DFC100D8F56E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A57C502224C7F7BB00D8F56E /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		A581CC5124C814D2006C4C8F /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		A5D86AC524D100A700C85CAD /* DJ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJ.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				A54AE33924C9399900168D5F /* AnimationButton.swift */,
-				A57C502224C7F7BB00D8F56E /* PlayButton.swift */,
 				A54AE33B24C95FC200168D5F /* PlaybackSlider.swift */,
 			);
 			path = View;
@@ -160,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				A581CC5124C814D2006C4C8F /* Song.swift */,
+				A5D86AC524D100A700C85CAD /* DJ.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,8 +296,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A54AE33A24C9399900168D5F /* AnimationButton.swift in Sources */,
+				A5D86AC624D100A700C85CAD /* DJ.swift in Sources */,
 				A57C4FF424C7DFC000D8F56E /* PlayerViewController.swift in Sources */,
-				A57C502324C7F7BB00D8F56E /* PlayButton.swift in Sources */,
 				A57C4FF024C7DFC000D8F56E /* AppDelegate.swift in Sources */,
 				A57C4FF224C7DFC000D8F56E /* SceneDelegate.swift in Sources */,
 				A54AE33C24C95FC200168D5F /* PlaybackSlider.swift in Sources */,

@@ -19,17 +19,15 @@ class PlayerViewController: UIViewController {
     //ジャケット画像
     @IBOutlet private weak var jacketImageView: UIImageView! {
         didSet {
-            self.jacketSize = jacketImageView.frame.size
             self.jacketImageView.layer.cornerRadius = jacketImageView.bounds.width / 20
         }
     }
-    private var jacketSize: CGSize!
     //音楽詳細ラベル
     @IBOutlet private weak var songTitleLabel: UILabel!
     @IBOutlet private weak var artistNameLabel: UILabel!
     //タイマーラベル
-    @IBOutlet weak var currentTimeLabel: UILabel!
-    @IBOutlet weak var limitTimeLabel: UILabel!
+    @IBOutlet private weak var currentTimeLabel: UILabel!
+    @IBOutlet private weak var limitTimeLabel: UILabel!
     //スライダー
     @IBOutlet private weak var playbackSeekBar: PlaybackSlider! {
         didSet {
@@ -56,19 +54,19 @@ class PlayerViewController: UIViewController {
         }
     }
     //音楽をコントロールするクラス
-    let dj = DJ.sheredInstance
+    private let dj = DJ.sheredInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //一曲目をロード
         loadSong(song: dj.next())
         //現在の状態を保持
-        playerState = .play
+        playerState = .play        
     }
     
     @objc func setTimerLabel() {
         playbackSeekBar.value = playbackSeekBar.value + sliderDuration
-        let limitTime = round(audioPlayer.duration) - audioPlayer.currentTime
+        let limitTime = audioPlayer.duration - audioPlayer.currentTime
         currentTimeLabel.text = formatTimeString(time: audioPlayer.currentTime)
         limitTimeLabel.text = "-\(formatTimeString(time: limitTime))"
     }

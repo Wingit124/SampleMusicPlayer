@@ -65,11 +65,11 @@ class DJ {
     func finishSong() -> Song {
         switch playMode {
         case .normal:
-            if currentNumber == 0 {
-                currentNumber = songsCount
+            if currentNumber == songsCount {
+                currentNumber = 0
                 return songs[currentNumber]
             }
-            currentNumber -= 1
+            currentNumber += 1
             return songs[currentNumber]
         case .shuffle:
             return songs[shuffle()]

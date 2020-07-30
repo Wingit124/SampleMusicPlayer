@@ -19,7 +19,17 @@ class PlayerViewController: UIViewController {
     //ジャケット画像
     @IBOutlet private weak var jacketImageView: UIImageView! {
         didSet {
-            self.jacketImageView.layer.cornerRadius = jacketImageView.bounds.width / 20
+            self.jacketImageView.layer.cornerRadius = self.jacketImageView.bounds.width / 20
+        }
+    }
+    //ジャケットの影
+    @IBOutlet private weak var jacketShadowView: UIView! {
+        didSet {
+            self.jacketShadowView.layer.cornerRadius = self.jacketShadowView.bounds.width / 20
+            self.jacketShadowView.layer.shadowColor = UIColor.black.cgColor
+            self.jacketShadowView.layer.shadowOffset = .zero
+            self.jacketShadowView.layer.shadowRadius = 20
+            self.jacketShadowView.layer.shadowOpacity = 0.1
         }
     }
     //音楽詳細ラベル
@@ -75,8 +85,8 @@ class PlayerViewController: UIViewController {
         if !timer.isValid && playerState == .pause {
             self.timer = Timer.scheduledTimer(timeInterval: 1 / fps, target: self, selector: #selector(setTimerLabel), userInfo: nil, repeats: true)
         }
-        if audioPlayer.isPlaying && sender.value == 1 {
-            audioPlayer.currentTime = audioPlayer.duration - 1
+        if sender.value == 1 {
+            audioPlayer.currentTime = audioPlayer.duration - 0.5
             return
         }
         audioPlayer.currentTime = Double(sender.value) * audioPlayer.duration
@@ -192,14 +202,14 @@ extension PlayerViewController {
     
     private func play() {
         playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
-        animScaleChange(view: jacketImageView, duration: 0.7, scale: 0.8)
+        animScaleChange(duration: 0.7, scale: 0.8, shadowOpacity: 0.1)
         audioPlayer.pause()
         timer.invalidate()
     }
     
     private func pause() {
         playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
-        animScaleChange(view: jacketImageView, duration: 0.7, scale: 1.0)
+        animScaleChange(duration: 0.7, scale: 1.0, shadowOpacity: 0.3)
         audioPlayer.play()
         if !timer.isValid {
             self.timer = Timer.scheduledTimer(timeInterval: 1 / fps, target: self, selector: #selector(setTimerLabel), userInfo: nil, repeats: true)
@@ -219,9 +229,11 @@ extension PlayerViewController {
         }
     }
     
-    private func animScaleChange(view: UIView, duration: TimeInterval, scale: CGFloat) {
+    private func animScaleChange(duration: TimeInterval, scale: CGFloat, shadowOpacity: Float) {
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-            view.transform = CGAffineTransform(scaleX: scale, y: scale)
+            self.jacketImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            self.jacketShadowView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            self.jacketShadowView.layer.shadowOpacity = shadowOpacity
         }, completion: nil)
     }
     
